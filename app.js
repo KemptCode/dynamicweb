@@ -40,6 +40,9 @@ io.on('connection', socket => {
             const message = `${username} has logged on.`
             socket.broadcast.emit('newMessage', {
                 /** CONTENT for the emit **/
+                message,
+                time,
+                from: 'admin'
             }) // <-----TODO-----
         })
         .on('message', data => {
@@ -48,6 +51,7 @@ io.on('connection', socket => {
             console.log(data)
             socket.broadcast.emit('newMessage', {
                 /** CONTENT for the emit **/
+                ...data //unpack the data
             }) // <-----TODO----- Note, only emits to all OTHER clients, not sender.
         })
 })
